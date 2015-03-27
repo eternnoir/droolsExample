@@ -18,19 +18,19 @@ import java.util.Collection;
  */
 public class HelloWorld {
     public static void main(String[] args) {
-        final KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+        KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
         kbuilder.add(ResourceFactory.newClassPathResource("drools/example1.dri"), ResourceType.DRL);
         if (kbuilder.hasErrors()) {
             System.out.println(kbuilder.getErrors().toString());
             throw new RuntimeException("Unable to compile \"example1.drl\".");
         }
-        final Collection<KnowledgePackage> pkgs = kbuilder.getKnowledgePackages();
-        final KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
+        Collection<KnowledgePackage> pkgs = kbuilder.getKnowledgePackages();
+        KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
         kbase.addKnowledgePackages(pkgs);
-        final StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
+        StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
         ksession.addEventListener( new DebugAgendaEventListener() );
         // Set up Message.
-        final Message message = new Message();
+        Message message = new Message();
         message.setMessage("Hello World");
         message.setStatus(Message.HELLO);
         ksession.insert(message);
